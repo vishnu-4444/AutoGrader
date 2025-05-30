@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoGrader - Sign Up</title>
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="/frontend/css/sign.css">
+</head>
+<body>
+    <!-- Background Shapes -->
+    <div class="bg-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <a href="index.html" class="logo">AutoGrader</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content" id="signup">
+        <div class="signup-card">
+            <div class="card-header">
+                <h1 class="card-title">Join AutoGrader</h1>
+                <p class="card-subtitle">Create your account to get started</p>
+            </div>
+
+            <!-- Toggle Switch -->
+            <div class="toggle-container">
+                <div class="toggle-switch">
+                    <div class="toggle-option active" data-mode="student">Student Sign Up</div>
+                    <div class="toggle-option" data-mode="teacher">Teacher Sign Up</div>
+                </div>
+            </div>
+
+            <!-- Sign Up Form -->
+            <form id="signupForm" class="signup-form">
+                <!-- Student Sign Up Fields -->
+                <div class="student-fields">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="studentFirstName" class="form-label">First Name</label>
+                            <input type="text" id="studentFirstName" name="studentFirstName" class="form-input" placeholder="Enter your first name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentLastName" class="form-label">Last Name</label>
+                            <input type="text" id="studentLastName" name="studentLastName" class="form-input" placeholder="Enter your last name" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="studentEmail" class="form-label">Student Email</label>
+                        <input type="email" id="studentEmail" name="studentEmail" class="form-input" placeholder="Enter your student email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="studentId" class="form-label">Student ID</label>
+                        <input type="text" id="studentId" name="studentId" class="form-input" placeholder="Enter your student ID" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="studentPassword" class="form-label">Password</label>
+                            <input type="password" id="studentPassword" name="studentPassword" class="form-input" placeholder="Create a password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentConfirmPassword" class="form-label">Confirm Password</label>
+                            <input type="password" id="studentConfirmPassword" name="studentConfirmPassword" class="form-input" placeholder="Confirm your password" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Teacher Sign Up Fields -->
+                <div class="teacher-fields hidden">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="teacherFirstName" class="form-label">First Name</label>
+                            <input type="text" id="teacherFirstName" name="teacherFirstName" class="form-input" placeholder="Enter your first name">
+                        </div>
+                        <div class="form-group">
+                            <label for="teacherLastName" class="form-label">Last Name</label>
+                            <input type="text" id="teacherLastName" name="teacherLastName" class="form-input" placeholder="Enter your last name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="teacherEmail" class="form-label">Teacher Email</label>
+                        <input type="email" id="teacherEmail" name="teacherEmail" class="form-input" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="teacherCode" class="form-label">Teacher Code</label>
+                        <input type="text" id="teacherCode" name="teacherCode" class="form-input" placeholder="Enter your teacher verification code">
+                    </div>
+                    <div class="form-group">
+                        <label for="department" class="form-label">Department</label>
+                        <select id="department" name="department" class="form-input">
+                            <option value="">Select your department</option>
+                            <option value="computer-science">Computer Science</option>
+                            <option value="mathematics">Mathematics</option>
+                            <option value="physics">Physics</option>
+                            <option value="chemistry">Chemistry</option>
+                            <option value="biology">Biology</option>
+                            <option value="english">English</option>
+                            <option value="history">History</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="teacherPassword" class="form-label">Password</label>
+                            <input type="password" id="teacherPassword" name="teacherPassword" class="form-input" placeholder="Create a password">
+                        </div>
+                        <div class="form-group">
+                            <label for="teacherConfirmPassword" class="form-label">Confirm Password</label>
+                            <input type="password" id="teacherConfirmPassword" name="teacherConfirmPassword" class="form-input" placeholder="Confirm your password">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Terms and Conditions -->
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms" name="terms" class="checkbox" required>
+                    <label for="terms" class="checkbox-label">I agree to the <a href="#" class="terms-link">Terms and Conditions</a> and <a href="#" class="terms-link">Privacy Policy</a></label>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn-primary">Create Account</button>
+
+                <!-- Login Link -->
+                <div class="login-link">
+                    <p>Already have an account? <a href="index.html" id="loginLink">Sign in here</a></p>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; AutoGrader</p>
+        </div>
+    </footer>
+
+    <!-- Link to external JavaScript file -->
+    <script src="js/signup.js"></script>
+</body>
+</html>
