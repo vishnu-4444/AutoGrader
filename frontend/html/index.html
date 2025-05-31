@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoGrader - Home</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <!-- Background Shapes -->
+    <div class="bg-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <a href="#" class="logo">AutoGrader</a>
+            <ul class="nav-links">
+                <li><a href="#about" class="nav-link">About Us</a></li>
+                <li><a href="/html/try.html" class="nav-link">Try Now ↗</a></li>
+                <li><a href="/html/signup.html" class="nav-link">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content" id="login">
+        <div class="login-card">
+            <div class="card-header">
+                <h1 class="card-title">Welcome Back</h1>
+                <p class="card-subtitle">Sign in to your account</p>
+            </div>
+
+            <!-- Toggle Switch -->
+            <div class="toggle-container">
+                <div class="toggle-switch">
+                    <div class="toggle-option active" data-mode="student">Student Login</div>
+                    <div class="toggle-option" data-mode="teacher">Teacher Login</div>
+                </div>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" class="login-form">
+                <!-- Student Login Fields -->
+                <div class="student-fields">
+                    <div class="form-group">
+                        <label for="studentEmail" class="form-label">Student Email</label>
+                        <input type="email" id="studentEmail" name="studentEmail" class="form-input" placeholder="Enter your student email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="studentPassword" class="form-label">Password</label>
+                        <input type="password" id="studentPassword" name="studentPassword" class="form-input" placeholder="Enter your password" required>
+                    </div>
+                </div>
+
+                <!-- Teacher Login Fields -->
+                <div class="teacher-fields hidden">
+                    <div class="form-group">
+                        <label for="teacherEmail" class="form-label">Teacher Email</label>
+                        <input type="email" id="teacherEmail" name="teacherEmail" class="form-input" placeholder="Enter your email">
+                    </div>
+                    <!-- <div class="form-group">
+                        <label for="teacherCode" class="form-label">Teacher Code</label>
+                        <input type="text" id="teacherCode" name="teacherCode" class="form-input" placeholder="Enter your teacher code">
+                    </div> -->
+                    <div class="form-group">
+                        <label for="teacherPassword" class="form-label">Password</label>
+                        <input type="password" id="teacherPassword" name="teacherPassword" class="form-input" placeholder="Enter your password">
+                    </div>
+                </div>
+
+                <!-- Remember Me -->
+                <div class="checkbox-group">
+                    <input type="checkbox" id="remember" name="remember" class="checkbox">
+                    <label for="remember" class="checkbox-label">Remember Me</label>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn-primary">Sign In</button>
+
+                <!-- Sign Up Link -->
+                <div class="signup-link">
+                    <p>Don't have an account? <a href="#" id="signupLink">Sign up here</a></p>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer/About Section -->
+    <footer class="footer" id="about">
+        <div class="footer-content">
+            <h2 class="footer-title">About AutoGrader</h2>
+            <p class="footer-text">
+                AutoGrader is an AI-powered tool that evaluates student answers instantly and fairly.  
+                It supports teachers by reducing grading time and improving feedback quality.
+            </p>
+            
+        </div>
+    </footer>
+    <script src="/js/index.js"></script>
+</body>
+</html>
