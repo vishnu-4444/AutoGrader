@@ -72,4 +72,6 @@ document.querySelectorAll('.input-field').forEach(field => {
     field.addEventListener('mouseleave', function () {
         if (this !== document.activeElement) {
             this.style.borderColor = 'rgba(255, 255, 255, 0.3)';
-        }
+        }
+    });
+});
