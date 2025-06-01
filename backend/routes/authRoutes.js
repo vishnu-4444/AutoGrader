@@ -57,4 +57,48 @@ router.post('/register/teacher', async (req, res) => {
   }
 });
 
+//Routes Login
+router.post("/login", async (req, res) => {
+  const { email, password, role } = req.body;
+
+  if (!email || !password || !role) {
+      return res.status(400).json({ message: "All fields are required" });
+  }
+
+  try {
+      let user;
+
+      // Pick the model based on role
+      if (role === "student") {
+          user = await Student.findOne({ email });
+      } else if (role === "teacher") {
+          user = await Teacher.findOne({ email });
+      } else {
+          return res.status(400).json({ message: "Invalid role" });
+      }
+
+      if (!user) {
+          return res.status(401).json({ message: "User not found" });
+      }
+
+      // Compare password
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+          return res.status(401).json({ message: "Incorrect password" });
+      }
+
+      // Success: You can return more info here if needed
+      res.status(200).json({
+          message: "Login successful",
+          userId: user._id,
+          name: user.name,
+          role: role
+      });
+
+  } catch (error) {
+      console.error("Login error:", error);
+      res.status(500).json({ message: "Server error" });
+  }
+});
+
 module.exports = router;
