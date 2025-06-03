@@ -17,34 +17,36 @@ const generateToken = (user) => {
 // Register Student
 exports.registerStudent = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, student_id } = req.body;
 
-    // Check required fields
-    if (!name || !email || !password) {
-      return res.status(400).json({ message: 'Please enter all required fields' });
+    if (!name || !email || !password || !student_id) {
+      return res.status(400).json({ message: 'Please enter all required fields including student_id' });
     }
 
-    // Check if user exists (Student or Teacher)
     const studentExists = await Student.findOne({ email });
     const teacherExists = await Teacher.findOne({ email });
+    const studentIdExists = await Student.findOne({ student_id });
+
     if (studentExists || teacherExists) {
       return res.status(400).json({ message: 'Email already registered' });
     }
 
-    // Hash password
+    if (studentIdExists) {
+      return res.status(400).json({ message: 'Student ID already taken' });
+    }
+
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Create student
     const newStudent = new Student({
       name,
       email,
-      password: hashedPassword
+      password: hashedPassword,
+      student_id
     });
 
     await newStudent.save();
 
-    // Generate token
     const token = generateToken(newStudent);
 
     res.status(201).json({
@@ -54,7 +56,8 @@ exports.registerStudent = async (req, res) => {
         id: newStudent._id,
         name: newStudent.name,
         email: newStudent.email,
-        role: newStudent.role
+        role: newStudent.role,
+        student_id: newStudent.student_id
       }
     });
 
@@ -67,34 +70,36 @@ exports.registerStudent = async (req, res) => {
 // Register Teacher
 exports.registerTeacher = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, teacher_id } = req.body;
 
-    // Check required fields
-    if (!name || !email || !password) {
-      return res.status(400).json({ message: 'Please enter all required fields' });
+    if (!name || !email || !password || !teacher_id) {
+      return res.status(400).json({ message: 'Please enter all required fields including teacher_id' });
     }
 
-    // Check if user exists
     const studentExists = await Student.findOne({ email });
     const teacherExists = await Teacher.findOne({ email });
+    const teacherIdExists = await Teacher.findOne({ teacher_id });
+
     if (studentExists || teacherExists) {
       return res.status(400).json({ message: 'Email already registered' });
     }
 
-    // Hash password
+    if (teacherIdExists) {
+      return res.status(400).json({ message: 'Teacher ID already taken' });
+    }
+
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Create teacher
     const newTeacher = new Teacher({
       name,
       email,
-      password: hashedPassword
+      password: hashedPassword,
+      teacher_id
     });
 
     await newTeacher.save();
 
-    // Generate token
     const token = generateToken(newTeacher);
 
     res.status(201).json({
@@ -104,7 +109,8 @@ exports.registerTeacher = async (req, res) => {
         id: newTeacher._id,
         name: newTeacher.name,
         email: newTeacher.email,
-        role: newTeacher.role
+        role: newTeacher.role,
+        teacher_id: newTeacher.teacher_id
       }
     });
 
@@ -113,6 +119,7 @@ exports.registerTeacher = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
 
 // Login User (Student or Teacher)
 exports.loginUser = async (req, res) => {

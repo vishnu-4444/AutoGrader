@@ -13,22 +13,36 @@ router.post('/grade', async (req, res) => {
   const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
 
   const prompt = `
-You are an exam grader. Grade the following student's answer based on the reference answer.
+          You are an exam grader. Grade the following student's answer based on the reference answer.
 
-Reference Answer:
-${reference_answer}
+          Reference Answer:
+          ${reference_answer}
 
-Student's Answer:
-${student_answer}
+          Student's Answer:
+          ${student_answer}
 
-Provide:
-1. A score out of 5.
-2. A short feedback to the student explaining what was missing, in 10-15 words maximum.
+          Provide:
+          1. A score out of 5.
+          2. A short feedback to the student explaining what was missing (max 15 words).
+          3. A concept map in this format:
 
-Format:
-Score: X/5
-Feedback: <Your feedback>
-`;
+          ADG:
+          {
+            "MainConcept": {
+              "Subconcept1": "✔",
+              "Subconcept2": "✔",
+              "Subconcept3": "❌"
+            }
+          }
+
+          Use ✔ for included, ❌ for missed. Do not write explanations inside ADG.
+          Format:
+          Score: X/5
+          Feedback: <short sentence>
+          ADG:
+          <the concept map object>
+          `;
+
 
   try {
     const result = await model.generateContent(prompt);
@@ -37,11 +51,23 @@ Feedback: <Your feedback>
 
     const scoreMatch = text.match(/Score:\s*(\d\/5)/i);
     const feedbackMatch = text.match(/Feedback:\s*(.*)/i);
+    const adgMatch = text.match(/ADG:\s*({[\s\S]*})/i);
+
+    let adgData = {};
+    if (adgMatch) {
+      try {
+        adgData = JSON.parse(adgMatch[1]);
+      } catch (err) {
+        console.error('Failed to parse ADG:', err);
+      }
+    }
 
     res.json({
       score: scoreMatch ? scoreMatch[1] : 'N/A',
-      feedback: feedbackMatch ? feedbackMatch[1] : 'No feedback received.'
+      feedback: feedbackMatch ? feedbackMatch[1] : 'No feedback received.',
+      adg: adgData
     });
+
   } catch (err) {
     console.error('Gemini grading error:', err);
     res.status(500).json({ error: 'Grading failed. Please try again.' });

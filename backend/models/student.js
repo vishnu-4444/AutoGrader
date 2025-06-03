@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const studentSchema = new mongoose.Schema({
+  student_id: {
+    type: String,
+    required: true,
+    unique: true
+  },
   name: {
     type: String,
     required: true,
@@ -19,7 +24,7 @@ const studentSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    default: 'student'  // Fixed role for students
+    default: 'student'
   }
 });
 

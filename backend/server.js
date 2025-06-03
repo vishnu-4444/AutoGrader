@@ -5,6 +5,8 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const authRoutes = require('./routes/authroutes');
 const gradeRoutes = require('./routes/gradeRoutes');
+const connectDB = require('./config/db');
+
 
 dotenv.config();
 const app = express();

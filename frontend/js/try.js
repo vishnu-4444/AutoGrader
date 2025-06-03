@@ -48,6 +48,12 @@ document.getElementById('gradientForm').addEventListener('submit', async functio
           `;
       
           document.getElementById('resultContainer').prepend(resultBox);
+
+          // After displaying resultBox:
+          if (result.adg && Object.keys(result.adg).length > 0) {
+            renderADGGraph(result.adg);
+          }
+
         }
       } catch (err) {
         console.error('Grading error:', err);
@@ -75,3 +81,33 @@ document.querySelectorAll('.input-field').forEach(field => {
         }
     });
 });
+
+function renderADGGraph(adgData) {
+  const container = document.createElement('div');
+  container.className = 'adg-container';
+  container.innerHTML = `<h3>Answer Diagnostic Graph (ADG)</h3>`;
+
+  const mainConcept = Object.keys(adgData)[0];
+  const subConcepts = adgData[mainConcept];
+
+  const mainNode = document.createElement('div');
+  mainNode.className = 'node main-node';
+  mainNode.textContent = mainConcept;
+  container.appendChild(mainNode);
+
+  for (const [sub, status] of Object.entries(subConcepts)) {
+    const arrow = document.createElement('div');
+    arrow.className = 'arrow';
+    arrow.textContent = '↓';
+
+    const node = document.createElement('div');
+    node.className = `node ${status === '✔' ? 'included' : 'missed'}`;
+    node.textContent = `${sub} (${status === '✔' ? '✔ Included' : '❌ Missed'})`;
+
+    container.appendChild(arrow);
+    container.appendChild(node);
+  }
+
+  document.getElementById('resultContainer').appendChild(container);
+}
+

@@ -170,3 +170,43 @@ body::before {
         font-size: 1.5rem;
     }
 }
+
+.adg-container {
+    margin-top: 30px;
+    padding: 10px;
+    background-color: #f3f7ff;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .node {
+    padding: 10px;
+    margin: 10px auto;
+    width: 250px;
+    border-radius: 8px;
+    font-weight: bold;
+  }
+  
+  .included {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  }
+  
+  .missed {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+  }
+  
+  .main-node {
+    background-color: black;
+    border: 1px solid #90caf9;
+  }
+  
+  .arrow {
+    font-size: 20px;
+    color: #333;
+  }
+  

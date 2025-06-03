@@ -48,62 +48,57 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Form submission logic
-  form.addEventListener("submit", async function (e) {
-      e.preventDefault();
-
-      // Before submission, ensure only visible inputs are required
-      toggleRequiredFields(currentMode);
-
-      // Optional: You can manually check validity if needed
-      if (!form.checkValidity()) {
-          form.reportValidity();
-          return;
-      }
-
-      const endpoint = currentMode === "student"
-          ? "/api/auth/register/student"
-          : "/api/auth/register/teacher";
-
-      // Prepare payload depending on mode
-      let payload = {};
-
-      if (currentMode === "student") {
-          // Combine first and last name
-          const firstName = document.getElementById("studentFirstName").value.trim();
-          const lastName = document.getElementById("studentLastName").value.trim();
-          payload.studentName = firstName + " " + lastName;
-          payload.studentEmail = document.getElementById("studentEmail").value.trim();
-          payload.studentPassword = document.getElementById("studentPassword").value;
-      } else {
-          // Teacher payload
-          const firstName = document.getElementById("teacherFirstName").value.trim();
-          const lastName = document.getElementById("teacherLastName").value.trim();
-          payload.teacherName = firstName + " " + lastName;
-          payload.teacherEmail = document.getElementById("teacherEmail").value.trim();
-          payload.teacherPassword = document.getElementById("teacherPassword").value;
-      }
-
-      try {
-          const response = await fetch(endpoint, {
-              method: "POST",
-              headers: {
-                  "Content-Type": "application/json"
-              },
-              body: JSON.stringify(payload)
-          });
-
-          const result = await response.json();
-
-          if (response.ok) {
-              alert(result.message || "Registration successful!");
-              // Optionally redirect user
-              // window.location.href = "/login";
-          } else {
-              alert(result.message || "Registration failed!");
-          }
-      } catch (err) {
-          console.error("Error submitting form:", err);
-          alert("Something went wrong. Please try again.");
-      }
-  });
+form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+  
+    toggleRequiredFields(currentMode);
+  
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+    }
+  
+    const endpoint = currentMode === "student"
+        ? "/api/auth/register/student"
+        : "/api/auth/register/teacher";
+  
+    let payload = {};
+  
+    if (currentMode === "student") {
+        const firstName = document.getElementById("studentFirstName").value.trim();
+        const lastName = document.getElementById("studentLastName").value.trim();
+        payload.studentName = firstName + " " + lastName;
+        payload.studentEmail = document.getElementById("studentEmail").value.trim();
+        payload.studentPassword = document.getElementById("studentPassword").value;
+        payload.student_id = document.getElementById("studentCode").value.trim();  // <-- Student ID
+    } else {
+        const firstName = document.getElementById("teacherFirstName").value.trim();
+        const lastName = document.getElementById("teacherLastName").value.trim();
+        payload.teacherName = firstName + " " + lastName;
+        payload.teacherEmail = document.getElementById("teacherEmail").value.trim();
+        payload.teacherPassword = document.getElementById("teacherPassword").value;
+        payload.teacher_id = document.getElementById("teacherCode").value.trim();  // <-- Teacher ID
+    }
+  
+    try {
+        const response = await fetch(endpoint, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        });
+  
+        const result = await response.json();
+  
+        if (response.ok) {
+            alert(result.message || "Registration successful!");
+        } else {
+            alert(result.message || "Registration failed!");
+        }
+    } catch (err) {
+        console.error("Error submitting form:", err);
+        alert("Something went wrong. Please try again.");
+    }
+  });  
 });
