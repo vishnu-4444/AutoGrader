@@ -17,7 +17,7 @@ const generateToken = (user) => {
 // Register Student
 exports.registerStudent = async (req, res) => {
   try {
-    const { name, email, password, student_id } = req.body;
+    const { student_id, name, email, password } = req.body;
 
     if (!name || !email || !password || !student_id) {
       return res.status(400).json({ message: 'Please enter all required fields including student_id' });
@@ -70,8 +70,10 @@ exports.registerStudent = async (req, res) => {
 // Register Teacher
 exports.registerTeacher = async (req, res) => {
   try {
-    const { name, email, password, teacher_id } = req.body;
+    const { teacher_id, name, email, password } = req.body;
 
+    console.log('Register Student payload:', { student_id, name, email, password });
+    
     if (!name || !email || !password || !teacher_id) {
       return res.status(400).json({ message: 'Please enter all required fields including teacher_id' });
     }

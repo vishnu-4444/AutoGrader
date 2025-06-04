@@ -63,22 +63,30 @@ form.addEventListener("submit", async function (e) {
         : "/api/auth/register/teacher";
   
     let payload = {};
+
+    let firstName, lastName;
+    if (currentMode === "student") {
+        firstName = document.getElementById("studentFirstName").value.trim();
+        lastName = document.getElementById("studentLastName").value.trim();
+    } else {
+        firstName = document.getElementById("teacherFirstName").value.trim();
+        lastName = document.getElementById("teacherLastName").value.trim();
+    }
   
     if (currentMode === "student") {
-        const firstName = document.getElementById("studentFirstName").value.trim();
-        const lastName = document.getElementById("studentLastName").value.trim();
+        payload.student_id = document.getElementById("studentCode").value.trim();  // Make sure you have this input field
         payload.studentName = firstName + " " + lastName;
         payload.studentEmail = document.getElementById("studentEmail").value.trim();
         payload.studentPassword = document.getElementById("studentPassword").value;
-        payload.student_id = document.getElementById("studentCode").value.trim();  // <-- Student ID
-    } else {
-        const firstName = document.getElementById("teacherFirstName").value.trim();
-        const lastName = document.getElementById("teacherLastName").value.trim();
+      } else {
+        payload.teacher_id = document.getElementById("teacherCode").value.trim();  // Make sure you have this input field
         payload.teacherName = firstName + " " + lastName;
         payload.teacherEmail = document.getElementById("teacherEmail").value.trim();
         payload.teacherPassword = document.getElementById("teacherPassword").value;
-        payload.teacher_id = document.getElementById("teacherCode").value.trim();  // <-- Teacher ID
-    }
+      }   
+      
+      console.log('Payload:', payload);
+
   
     try {
         const response = await fetch(endpoint, {

@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const authRoutes = require('./routes/authroutes');
+const authRoutes = require('./routes/authRoutes');
 const gradeRoutes = require('./routes/gradeRoutes');
 const connectDB = require('./config/db');
 
